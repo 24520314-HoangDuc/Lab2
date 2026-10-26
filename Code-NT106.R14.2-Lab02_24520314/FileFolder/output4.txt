@@ -1,0 +1,16 @@
+﻿Ho ten: Duc
+MSSV: 24520314
+Dien thoai: 0968021106
+Diem mon 1: 9
+Diem mon 2: 9
+Diem mon 3: 9
+Diem trung binh: 9.00
+---------------------------
+Ho ten: Dinh
+MSSV: 34520303
+Dien thoai: 0911777888
+Diem mon 1: 10
+Diem mon 2: 10
+Diem mon 3: 10
+Diem trung binh: 10.00
+---------------------------
