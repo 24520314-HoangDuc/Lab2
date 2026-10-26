@@ -60,7 +60,7 @@ namespace Code_NT106.R14._2_Lab02_24520314
                 return;
             }
 
-            if (txtFoodImageAdded.Text == String.Empty)
+            if (txtFoodNameAdded.Text == String.Empty)
             {
                 MessageBox.Show("Vui lòng nhập tên món ăn!");
                 return;

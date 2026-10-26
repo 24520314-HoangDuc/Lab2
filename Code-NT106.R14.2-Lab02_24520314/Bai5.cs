@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Code_NT106.R14._2_Lab02_24520314
+namespace Code_NT106.R14._2_Lab02_24520314 // Kiểm tra lại đúng tên Namespace dự án của bạn
 {
     public struct Film
     {
-        public string Name; // Tên phim
-        public double standardPrice; // Giá chuẩn
-        public List<int> rooms; // Danh sách các phòng chiếu
-        public List<List<List<string>>> seats; // Chỗ chưa có người mua
-        public int numOfTickets; // Số vé ban đầu
-        public int numOfSoldTickets; // Số vé đã bán
-        public int numOfTicketsLeft; // Số vé còn lại
-        public double revenue; // Doanh thu
+        public string Name;
+        public double standardPrice;
+        public List<int> rooms;
+        public List<List<List<string>>> seats;
+        public int numOfTickets;
+        public int numOfSoldTickets;
+        public int numOfTicketsLeft;
+        public double revenue;
 
-        public Film(string _Name, string _Price, string _rooms,
-            string _numOfTickets)
+        public Film(string _Name, string _Price, string _rooms, string _numOfTickets)
         {
             Name = _Name;
-
             standardPrice = double.Parse(_Price);
-
             rooms = new List<int>();
             string room = "";
             foreach (char r in _rooms)
@@ -38,7 +35,6 @@ namespace Code_NT106.R14._2_Lab02_24520314
                     rooms.Add(int.Parse(room));
                     room = "";
                 }
-
                 else room += r;
             }
             rooms.Add(int.Parse(room));
@@ -53,7 +49,6 @@ namespace Code_NT106.R14._2_Lab02_24520314
             }
 
             numOfTickets = int.Parse(_numOfTickets);
-
             numOfSoldTickets = 0;
             numOfTicketsLeft = numOfTickets;
             revenue = 0;
@@ -67,6 +62,7 @@ namespace Code_NT106.R14._2_Lab02_24520314
         public Bai5()
         {
             InitializeComponent();
+            cboTicketClass.Items.AddRange(new string[] { "Vé vớt", "Vé chuẩn", "Vé VIP" });
         }
 
         private void clearInfo()
@@ -108,7 +104,6 @@ namespace Code_NT106.R14._2_Lab02_24520314
                         cboFilmName.Items.Add(filmList[i].Name);
                     }
                 }
-
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Lỗi đọc file: {ex.Message}");
@@ -117,20 +112,25 @@ namespace Code_NT106.R14._2_Lab02_24520314
             }
         }
 
-        private void cboFileName_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboFilmName_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = cboFilmName.SelectedIndex;
+            if (index == -1) return;
+
             cboRooms.Items.Clear();
             foreach (int r in filmList[index].rooms)
             {
                 cboRooms.Items.Add(r);
             }
+            cboSeat.Items.Clear();
         }
 
+        // ĐÂY LÀ HÀM BỊ THIẾU TRONG CODE 1 CỦA BẠN (DÙNG ĐỂ NẠP GHẾ)
         private void cboTicketClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboFilmName.SelectedIndex == -1) return;
             if (cboRooms.SelectedIndex == -1) return;
+            if (cboTicketClass.SelectedIndex == -1) return;
 
             cboSeat.Items.Clear();
             int filmIndex = cboFilmName.SelectedIndex;
@@ -177,6 +177,8 @@ namespace Code_NT106.R14._2_Lab02_24520314
 
             int filmIndex = cboFilmName.SelectedIndex;
             int classIndex = cboTicketClass.SelectedIndex;
+            int roomIndex = cboRooms.SelectedIndex;
+            string selectedSeat = cboSeat.SelectedItem.ToString();
             double price = filmList[filmIndex].standardPrice;
             if (classIndex == 0) price /= 4;
             else
@@ -186,9 +188,10 @@ namespace Code_NT106.R14._2_Lab02_24520314
 
             rtbCustomInfo.Text +=
                 $"Tên khách hàng: {txtCustomName.Text}{Environment.NewLine}" +
-                $"Loại vé: {cboTicketClass.SelectedItem}{Environment.NewLine}" +
                 $"Tên phim: {cboFilmName.SelectedItem}{Environment.NewLine}" +
+                $"Loại vé: {cboTicketClass.SelectedItem}{Environment.NewLine}" +
                 $"Phòng chiếu: {cboRooms.SelectedItem}{Environment.NewLine}" +
+                $"Vị trí ghế: {selectedSeat}{Environment.NewLine}" +
                 $"Cái giá phải trả: {price}{Environment.NewLine}" +
                 $"{Environment.NewLine}";
 
@@ -225,7 +228,6 @@ namespace Code_NT106.R14._2_Lab02_24520314
                         pb_progress.Maximum = filmIndexList.Length;
                         pb_progress.Value = 0;
 
-
                         for (int i = filmIndexList.Length - 1; i >= 0; i--)
                         {
                             int index = filmIndexList[i].Item2;
@@ -244,14 +246,12 @@ namespace Code_NT106.R14._2_Lab02_24520314
                         pb_progress.Value = 0;
                     }
                 }
-
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Lỗi ghi file: {ex.Message}");
                     return;
                 }
             }
-
         }
     }
 }

@@ -130,7 +130,7 @@
             cboFilmName.Name = "cboFilmName";
             cboFilmName.Size = new Size(182, 33);
             cboFilmName.TabIndex = 6;
-            cboFilmName.SelectedIndexChanged += cboFileName_SelectedIndexChanged;
+            cboFilmName.SelectedIndexChanged += cboFilmName_SelectedIndexChanged;
             // 
             // txtCustomName
             // 
@@ -153,9 +153,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(21, 258);
             label5.Name = "label5";
-            label5.Size = new Size(76, 25);
+            label5.Size = new Size(67, 25);
             label5.TabIndex = 3;
-            label5.Text = "Hạn chế";
+            label5.Text = "Loại vé";
             // 
             // label4
             // 
